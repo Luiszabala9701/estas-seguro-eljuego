@@ -2,7 +2,7 @@
 
 ## Resultado de la entrega
 
-- 66 pruebas de motor, narrativa, interpretación y guardado; incluyen 500 recorridos deterministas y rutas a los veinte finales.
+- 67 pruebas de motor, narrativa, interpretación, música y guardado; incluyen 500 recorridos deterministas y rutas a los veinte finales.
 - 15 pruebas de interfaz aprobadas: cinco flujos en Chrome escritorio, Chrome móvil emulado y Edge escritorio.
 - 1 prueba de producción sin conexión aprobada, con recarga y restauración de partida.
 - Compilación de producción completada con TypeScript estricto.

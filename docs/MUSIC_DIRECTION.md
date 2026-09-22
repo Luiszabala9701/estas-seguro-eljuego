@@ -5,6 +5,7 @@ La música del juego debe sentirse como parte del edificio: discreta, repetible 
 | Tema | Uso dinámico | Sonido sugerido |
 | --- | --- | --- |
 | **Archivo dormido** | Menú y consulta del archivo | Piano preparado muy distante, ruido de cinta y lluvia filtrada |
+| **Trofeos en penumbra** | Menú de logros | Campanas apagadas y un arpegio ascendente breve |
 | **La línea bajo la lluvia** | Interrogatorios de *La última llamada* | Pulsos graves, teléfono apagado, notas aisladas de Rhodes |
 | **Trece minutos de más** | Interrogatorios de *Habitación 309* | Tic irregular, contrabajo con arco y metal del ascensor |
 | **El carrete recuerda** | Interrogatorios de *El testigo imposible* | Cinta inestable, armónicos de vidrio y piano invertido |

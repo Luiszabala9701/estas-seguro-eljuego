@@ -72,6 +72,7 @@ function closeModal(): void {
   modalRoot.querySelector('dialog')?.close(); modalRoot.innerHTML = '';
   app.inert = false;
   lastFocus?.focus({ preventScroll: true });
+  void updateAudio();
 }
 function modal(title: string, body: string, wide = false): void {
   finishTyping();
@@ -141,7 +142,7 @@ document.addEventListener('click', event => {
       case 'present': if (data.game) setGame(presentEvidence(data.game, caseData(), id)); break;
       case 'settings': modal('Opciones', settingsPanel(data, warning)); break;
       case 'archive': modal('Archivo de investigación', archivePanel(data, cases), true); break;
-      case 'achievements': modal('Logros', achievementsPanel(data, cases), true); break;
+      case 'achievements': audio.setCue('achievements'); void audio.configure(data.settings.audio, data.settings.volume); modal('Logros', achievementsPanel(data, cases), true); break;
       case 'audio': data.settings.audio = !data.settings.audio; persist(); void updateAudio(); render(); toast(data.settings.audio ? 'Ambiente activado' : 'Ambiente silenciado'); break;
       case 'tape': data.settings.audio = true; persist(); void updateAudio().then(() => audio.tape()); toast('Ambiente de cinta · La grabación se lee en la transcripción.'); break;
       case 'input-confirm': if (data.game && interpretation) setGame(answerInput(data.game, caseData(), id, interpretation.original)); break;

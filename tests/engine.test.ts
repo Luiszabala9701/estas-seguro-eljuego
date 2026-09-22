@@ -7,6 +7,7 @@ import { validateCase } from '../src/engine/validation';
 import { decodeSave, emptySave, load, save, SAVE_KEY, BACKUP_KEY, updateProgress, type StorageLike } from '../src/engine/persistence';
 import type { CaseData, GameState } from '../src/engine/types';
 import { achievements, caseCompletion } from '../src/achievements';
+import { cueForGame } from '../src/audio/ambience';
 const domain = lastCall.scenes.find(s => s.id === 'location')!.input!;
 export function settle(s: GameState, c = lastCall): GameState {
   let count = 0; while (pendingConfrontation(s)) { if (++count > 40) throw new Error('Bucle de confrontaciones'); s = resolveConfrontation(s, c, 'explain'); } return s;
@@ -94,4 +95,7 @@ describe('logros', () => {
     expect(caseCompletion(progress, lastCall).complete).toBe(true);
     expect(achievements(progress, [lastCall]).filter(item => item.unlocked)).toHaveLength(lastCall.endings.length + 2);
   });
+});
+it('el caso 01 usa una música distinta del menú', () => {
+  expect(cueForGame(startCase(lastCall), lastCall)).toBe('rain-line');
 });
