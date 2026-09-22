@@ -54,7 +54,7 @@ export function achievements(progress: Progress, cases: CaseData[]): Achievement
     id: 'game:complete',
     kind: 'game',
     title: '¿Estás completamente seguro?',
-    description: 'Completá al 100% los tres expedientes.',
+    description: `Completá al 100% los ${cases.length} expedientes.`,
     unlocked: completedCases === cases.length,
     current: completedCases,
     total: cases.length

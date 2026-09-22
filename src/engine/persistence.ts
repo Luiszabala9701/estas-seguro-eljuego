@@ -34,6 +34,12 @@ export function decodeSave(raw: string, cases: CaseData[]): SaveData {
   for (const id of [...result.progress.unlocked, ...result.progress.completed]) if (!cases.some(c => c.id === id)) throw new Error('Caso guardado no disponible.');
   for (const [caseId, ids] of Object.entries(result.progress.endings)) if (!cases.some(c => c.id === caseId && ids.every(id => c.endings.some(e => e.id === id)))) throw new Error('Final guardado no disponible.');
   for (const [caseId, ids] of Object.entries(result.progress.evidence)) if (!cases.some(c => c.id === caseId && ids.every(id => c.evidence.some(e => e.id === id)))) throw new Error('Prueba guardada no disponible.');
+  // Content expansions inherit the sequential unlock earned by completing the
+  // former last case, so existing players do not need to replay it.
+  for (const completedId of result.progress.completed) {
+    const following = cases[cases.findIndex(c => c.id === completedId) + 1];
+    if (following && !result.progress.unlocked.includes(following.id)) result.progress.unlocked.push(following.id);
+  }
   return result;
 }
 function validateGame(value: unknown, cases: CaseData[]): asserts value is GameState {

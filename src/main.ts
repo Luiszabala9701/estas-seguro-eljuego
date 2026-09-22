@@ -10,7 +10,7 @@ import { home } from './ui/home';
 import { gameView, endingView } from './ui/game';
 import { settingsPanel, journalPanel, evidencePanel, archivePanel, achievementsPanel, casePanel } from './ui/panels';
 import { escapeHtml as h, icon } from './ui/icons';
-import { Ambience, type CueId } from './audio/ambience';
+import { Ambience, cueForGame } from './audio/ambience';
 import { achievements, unlockedAchievementIds } from './achievements';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
@@ -44,18 +44,7 @@ function appearance(): void {
   document.documentElement.classList.toggle('large-text', data.settings.textSize === 'large');
 }
 async function updateAudio(): Promise<void> {
-  const cue = (): CueId => {
-    if (view === 'home' || !data.game) return 'archive';
-    if (data.game.endingId) return 'aftermath';
-    const scene = currentScene(data.game, caseData());
-    if (pendingConfrontation(data.game) || data.game.tension > 65) return 'fracture';
-    if (scene.kind === 'decision') return 'last-signature';
-    if (scene.kind === 'revelation') return 'under-glass';
-    if (scene.kind === 'memory') return 'borrowed-memory';
-    if (scene.kind === 'evidence') return 'magnetic';
-    return data.game.caseId === 'ultima-llamada' ? 'rain-line' : data.game.caseId === 'habitacion-309' ? 'thirteen-minutes' : 'old-reel';
-  };
-  try { audio.setCue(cue()); await audio.configure(data.settings.audio, data.settings.volume); }
+  try { audio.setCue(view === 'game' && data.game ? cueForGame(data.game, caseData()) : 'archive'); await audio.configure(data.settings.audio, data.settings.volume); }
   catch { data.settings.audio = false; persist(); toast('El audio no está disponible. Podés seguir jugando en silencio.'); }
 }
 function finishTyping(): void {
@@ -160,7 +149,7 @@ document.addEventListener('click', event => {
       case 'export': exportSave(); break;
       case 'reset': modal('Borrar todos los datos', '<p>Se borrarán de este navegador la partida, sus copias de seguridad, las opciones y todos los hallazgos. Esta acción no se puede deshacer.</p><div class="modal-actions"><button class="button secondary" data-action="close">Cancelar</button><button class="button danger-button" data-action="confirm-reset">Sí, borrar todos los datos</button></div>'); break;
       case 'confirm-reset': localStorage.removeItem(SAVE_KEY); localStorage.removeItem(BACKUP_KEY); data = emptySave(); storageBlocked = false; warning = undefined; closeModal(); view = 'home'; void updateAudio(); render(); toast('Se borraron los datos de este juego.'); break;
-      case 'credits': modal('Detrás del expediente', '<p class="eyebrow">¿ESTÁS SEGURO? · EL JUEGO</p><p>Una ficción interactiva original de investigación criminal y terror psicológico, desarrollada a partir de la idea y el documento de diseño de Luis.</p><p>Guion, ilustraciones vectoriales, interfaz y sonido sintetizado creados para este proyecto. Todos los personajes, lugares y hechos son ficticios.</p><p>Sin servicios externos, cuentas ni inteligencia artificial durante el juego. Tus partidas permanecen en tu navegador.</p><p class="aside">Versión 1.0 · Tres expedientes, doce desenlaces.</p>'); break;
+      case 'credits': modal('Detrás del expediente', '<p class="eyebrow">¿ESTÁS SEGURO? · EL JUEGO</p><p>Una ficción interactiva original de investigación criminal y terror psicológico, desarrollada a partir de la idea y el documento de diseño de Luis.</p><p>Guion, ilustraciones vectoriales, interfaz y banda sonora sintetizada creados para este proyecto. Todos los personajes, lugares y hechos son ficticios.</p><p>Sin servicios externos, cuentas ni inteligencia artificial durante el juego. Tus partidas permanecen en tu navegador.</p><p class="aside">Versión 1.1 · Cinco expedientes, veinte desenlaces.</p>'); break;
     }
   } catch (error) { toast(error instanceof Error ? error.message : 'No se pudo completar la acción. La última partida guardada se conserva.'); }
 });

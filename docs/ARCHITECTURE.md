@@ -8,7 +8,7 @@ Esta elección reduce tamaño y dependencias de ejecución. El motor no importa 
 
 ```mermaid
 flowchart LR
-  Cases[Datos de los tres casos] --> Engine[Motor determinista]
+  Cases[Datos de los cinco casos] --> Engine[Motor determinista]
   Input[Interpretación acotada] --> Engine
   Engine --> Memory[Declaraciones y contradicciones]
   Engine --> State[GameState]
@@ -30,7 +30,7 @@ flowchart LR
 | `src/engine/interpreter.ts` | Normalización, frases acotadas, negación y ambigüedad |
 | `src/engine/persistence.ts` | Validación, migración v1, respaldo, progreso y guardado |
 | `src/engine/validation.ts` | Integridad de referencias, salidas y alcance estático |
-| `src/cases/` | Tres historias completas; contenido separado de lógica |
+| `src/cases/` | Cinco historias completas; contenido separado de lógica |
 | `src/ui/home.ts` | Menú y selección de casos |
 | `src/ui/game.ts` | Sala, confrontación y desenlace |
 | `src/ui/panels.ts` | Expediente, pruebas, archivo, preferencias y vista previa |

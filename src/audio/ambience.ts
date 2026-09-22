@@ -1,10 +1,29 @@
-export type CueId = 'archive' | 'rain-line' | 'thirteen-minutes' | 'old-reel' | 'magnetic' | 'borrowed-memory' | 'under-glass' | 'fracture' | 'last-signature' | 'aftermath';
+import type { CaseData, GameState } from '../engine/types';
+
+export type CueId = 'archive' | 'rain-line' | 'thirteen-minutes' | 'old-reel' | 'dead-frequency' | 'last-carriage' | 'magnetic' | 'borrowed-memory' | 'under-glass' | 'fracture' | 'last-signature' | 'aftermath';
+
+export const CUE_TITLES: Record<CueId, string> = {
+  archive: 'Archivo dormido',
+  'rain-line': 'La línea bajo la lluvia',
+  'thirteen-minutes': 'Trece minutos de más',
+  'old-reel': 'El carrete recuerda',
+  'dead-frequency': 'Frecuencia cero',
+  'last-carriage': 'Riel sin retorno',
+  magnetic: 'Cinta magnética',
+  'borrowed-memory': 'Memoria prestada',
+  'under-glass': 'Prueba bajo vidrio',
+  fracture: 'La versión se quiebra',
+  'last-signature': 'La última firma',
+  aftermath: 'Después del acta'
+};
 
 const scores: Record<CueId, { notes: (number | null)[]; interval: number; wave: OscillatorType }> = {
   archive: { notes: [0, null, 7, null, 3, null, 10, null], interval: 1800, wave: 'sine' },
   'rain-line': { notes: [0, 3, null, 7, 5, null, 3, null], interval: 1500, wave: 'triangle' },
   'thirteen-minutes': { notes: [0, null, 1, 8, null, 7, 1, null], interval: 1250, wave: 'sine' },
   'old-reel': { notes: [0, 7, 10, null, 2, 9, null, 5], interval: 1700, wave: 'triangle' },
+  'dead-frequency': { notes: [0, null, 6, 5, null, 11, 6, 1], interval: 1420, wave: 'sawtooth' },
+  'last-carriage': { notes: [0, 7, 5, 2, null, 8, 7, 1], interval: 1180, wave: 'triangle' },
   magnetic: { notes: [0, null, 12, 7, null, 5, 3, null], interval: 1350, wave: 'sine' },
   'borrowed-memory': { notes: [0, 3, 7, 10, 7, 3, null, null], interval: 1900, wave: 'sine' },
   'under-glass': { notes: [0, 1, 7, 8, 12, null, 8, 7], interval: 1100, wave: 'triangle' },
@@ -12,6 +31,17 @@ const scores: Record<CueId, { notes: (number | null)[]; interval: number; wave: 
   'last-signature': { notes: [0, null, 5, 6, 10, null, 5, 1], interval: 1050, wave: 'triangle' },
   aftermath: { notes: [0, 3, 7, 12, null, 10, 7, 3], interval: 2100, wave: 'sine' }
 };
+
+export function cueForGame(game: GameState, data: CaseData): CueId {
+  if (game.endingId) return 'aftermath';
+  const scene = data.scenes.find(item => item.id === game.sceneId);
+  if (game.contradictions.some(item => item.status === 'pending' && !item.used) || game.tension > 65) return 'fracture';
+  if (scene?.kind === 'decision') return 'last-signature';
+  if (scene?.kind === 'revelation') return 'under-glass';
+  if (scene?.kind === 'memory') return 'borrowed-memory';
+  if (scene?.kind === 'evidence') return 'magnetic';
+  return ({ 'ultima-llamada': 'rain-line', 'habitacion-309': 'thirteen-minutes', 'testigo-imposible': 'old-reel', 'frecuencia-muerta': 'dead-frequency', 'ultimo-vagon': 'last-carriage' } as Record<string, CueId>)[game.caseId] ?? 'archive';
+}
 
 // All sound and music is synthesized locally. Never starts without a user gesture.
 export class Ambience {

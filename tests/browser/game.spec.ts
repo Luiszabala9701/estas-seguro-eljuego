@@ -33,8 +33,8 @@ test('menú, opciones, teclado, expediente y guardado', async ({ page }, testInf
   const external: string[] = []; page.on('request', r => { if (!r.url().startsWith('http://127.0.0.1:5173') && !r.url().startsWith('data:')) external.push(r.url()); });
   await page.goto('/');
   await expect(page.getByRole('heading', { name: /¿Estás/ })).toBeVisible();
-  await expect(page.locator('.case-card')).toHaveCount(3);
-  await expect(page.locator('.case-card.locked')).toHaveCount(2);
+  await expect(page.locator('.case-card')).toHaveCount(5);
+  await expect(page.locator('.case-card.locked')).toHaveCount(4);
   await expect(page.locator('body')).not.toHaveClass(/fatal/);
   await page.screenshot({ path: `output/qa/home-${testInfo.project.name}.png`, fullPage: true });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
@@ -81,7 +81,7 @@ test('menú, opciones, teclado, expediente y guardado', async ({ page }, testInf
   await expect(page.getByRole('heading', { name: 'Al otro lado del amanecer' })).toBeVisible();
   await page.screenshot({ path: `output/qa/ending-${testInfo.project.name}.png`, fullPage: true });
   await page.getByRole('button', { name: 'Volver a los casos' }).click();
-  await expect(page.locator('.case-card.locked')).toHaveCount(1);
+  await expect(page.locator('.case-card.locked')).toHaveCount(3);
   await page.getByRole('button', { name: 'Archivo', exact: true }).click();
   await expect(page.getByRole('dialog')).toContainText('Al otro lado del amanecer');
   await expect(page.getByRole('dialog')).not.toContainText('Una línea que nadie atiende');

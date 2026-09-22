@@ -53,6 +53,32 @@ La cabina distingue observación de una pantalla y presencia directa. Las notas 
 
 Rectificar durante la confrontación final impide el desenlace de ratificación falsa. El sistema distingue un recuerdo incierto de una insistencia expresa posterior a la presentación de pruebas.
 
+## 04 · La frecuencia muerta
+
+**Protagonista:** Mara Véliz, operadora de sonido. **Investigadora:** Irene Ferrero. **Desaparecido:** Simón Leal. **Responsable del encubrimiento:** Esteban Orbe.
+
+Simón recupera la llamada original de un incendio ocurrido en 2019 y programa una emisión antes de ocultarse en una torre de agua. Mara había retirado ocho minutos de esa cinta bajo presión de Orbe. El caso separa la urgencia de encontrar a Simón, la publicación de la prueba y la responsabilidad de Mara por la edición.
+
+| Final | Decisión significativa |
+| --- | --- |
+| Una voz al otro lado | Revelar la torre y enviar una búsqueda protegida |
+| Todo queda al aire | Publicar el archivo aunque la ubicación quede expuesta |
+| El corte lleva tu nombre | Asumir formalmente la edición de 2019 |
+| Después, estática | Cerrar sin unir la pista con una búsqueda segura |
+
+## 05 · El último vagón
+
+**Protagonista:** Julián Paz, guarda ferroviario. **Investigadora:** Nadia Reyes. **Desaparecida:** Alma Quiroga. **Perseguidor:** Ramiro Ledesma.
+
+Alma lleva una auditoría que compromete a la concesionaria. Julián corta la cámara del último vagón, detiene el tren y la ayuda a bajar frente a una casilla abandonada. Los registros prueban cada acción por separado; la declaración decide si esas piezas forman un rescate, una fuga, una acusación falsa o un nuevo silencio.
+
+| Final | Decisión significativa |
+| --- | --- |
+| Señal verde | Guiar al equipo a la casilla y señalar a Ledesma |
+| Fuera de línea | Proteger la fuga de Alma sin incorporarla al programa de testigos |
+| La vía equivocada | Ratificar una acusación falsa contra Benítez |
+| El tren llega vacío | Cerrar sin convertir la parada en una ruta de búsqueda |
+
 ## Identidad y rejugabilidad
 
-El primer caso trata de revelar una ubicación sin traicionar a la persona buscada; el segundo de reconocer una muerte y reconstruir sus circunstancias; el tercero de corregir una denuncia y revisar un encubrimiento histórico. La progresión acumula finales, pruebas y escenas vistas, sin mostrar títulos o secretos de desenlaces no descubiertos.
+Los cinco casos exploran distintas formas de declarar bajo presión: proteger a una persona, reconstruir una muerte, corregir una identificación, asumir un encubrimiento y decidir cuándo romper un protocolo. La progresión acumula finales, pruebas y escenas vistas, sin mostrar títulos o secretos de desenlaces no descubiertos.

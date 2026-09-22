@@ -8,9 +8,9 @@
 4. **Presentación:** menú, selección, expediente, archivo, ilustración local, audio opcional, opciones, responsive y progresión.
 5. **Segundo caso:** quince escenas, diez pruebas, relojes incompatibles y cuatro desenlaces.
 6. **Tercer caso:** quince escenas, nueve pruebas, procedencia de imágenes y contradicciones encadenadas, cuatro desenlaces.
-7. **QA:** recorridos por los doce finales, 300 partidas deterministas de comprobación, guardados, intérprete, navegadores, capturas de escritorio/móvil y compilación estática.
+7. **QA:** recorridos por los veinte finales, 500 partidas deterministas de comprobación, guardados, intérprete, navegadores, capturas de escritorio/móvil y compilación estática.
 
-La entrega incluye el contenido jugable de los tres casos. No se dejó un segundo o tercer expediente como pantalla de «próximamente».
+La entrega incluye el contenido jugable de los cinco casos. Ningún expediente es una pantalla de «próximamente».
 
 ## Límites explícitos de esta versión
 

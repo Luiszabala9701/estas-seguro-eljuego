@@ -16,6 +16,18 @@ export const paths: Record<string, Record<string, string[]>> = {
     hermano: ['screen', 'tomas', 'input:projection', 'victim', 'check-master', 'correct-date', 'child-me', 'admit-child', 'protect-father', 'withdraw', 'finish'],
     voz: ['live', 'tomas', 'input:gallery', 'first', 'hold-date', 'double-down', 'no-child', 'deny-family', 'denial', 'insist', 'insist-final', 'finish'],
     silencio: ['uncertain', 'similar', 'input:street', 'elisa', 'original', 'challenge-date', 'refuse-date', 'listen', 'admit-child', 'protect-father', 'silence', 'finish']
+  },
+  'frecuencia-muerta': {
+    rescate: ['file', 'simon', 'input:studio', 'accept-scheduled', 'admit-edit', 'met', 'recognize-tower', 'reveal-tower', 'rescue', 'finish'],
+    aire: ['file', 'simon', 'input:studio', 'inspect-original', 'admit-edit', 'met', 'orbe-threat', 'air-first', 'broadcast', 'finish'],
+    confesion: ['unsure', 'unknown', 'input:studio', 'check-console', 'only-orders', 'partial', 'metaphor', 'take-blame', 'confess', 'finish'],
+    estatica: ['file', 'simon', 'input:street', 'inspect-original', 'deny-edit', 'no-meeting', 'metaphor', 'hide-place', 'silence', 'finish']
+  },
+  'ultimo-vagon': {
+    'senal-verde': ['saw-alma', 'checked', 'input:rear', 'admit-cut', 'made-stop', 'helped', 'name-ledesma', 'give-location', 'rescue', 'finish'],
+    'fuera-de-linea': ['name-later', 'checked', 'input:rear', 'protect-passenger', 'emergency', 'helped', 'name-ledesma', 'let-run', 'protect', 'finish'],
+    'via-equivocada': ['did-not-see', 'not-checked', 'input:cabin', 'deny-cut', 'deny-stop', 'alone-door', 'blame-porter', 'accuse-porter', 'accuse', 'finish'],
+    terminal: ['name-later', 'unsure-check', 'input:platform', 'admit-cut', 'made-stop', 'memory-door', 'cannot-name', 'stay-silent', 'close', 'finish']
   }
 };
 function settle(state: GameState, data: CaseData, rectify = false): GameState {
@@ -54,6 +66,12 @@ it('un final desfavorable desbloquea el siguiente caso', () => {
   const s = startCase(cases[0]!); s.endingId = 'eco';
   const progress = updateProgress(emptySave().progress, s, cases);
   expect(progress.unlocked).toEqual(['ultima-llamada', 'habitacion-309']);
+});
+it('un guardado anterior con el caso 03 completo desbloquea el caso 04', () => {
+  const save = emptySave();
+  save.progress.completed = cases.slice(0, 3).map(item => item.id);
+  save.progress.unlocked = cases.slice(0, 3).map(item => item.id);
+  expect(decodeSave(JSON.stringify(save), cases).progress.unlocked).toContain('frecuencia-muerta');
 });
 it('una rectificación de relación no escribe un booleano en el vínculo', () => {
   const c = cases[0]!; let s = choose(startCase(c), c, 'stranger'); s = choose(s, c, 'yes'); s = settle(s, c, true);

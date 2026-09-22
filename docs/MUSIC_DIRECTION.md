@@ -8,6 +8,8 @@ La música del juego debe sentirse como parte del edificio: discreta, repetible 
 | **La línea bajo la lluvia** | Interrogatorios de *La última llamada* | Pulsos graves, teléfono apagado, notas aisladas de Rhodes |
 | **Trece minutos de más** | Interrogatorios de *Habitación 309* | Tic irregular, contrabajo con arco y metal del ascensor |
 | **El carrete recuerda** | Interrogatorios de *El testigo imposible* | Cinta inestable, armónicos de vidrio y piano invertido |
+| **Frecuencia cero** | Interrogatorios de *La frecuencia muerta* | Ondas cortas, pulsos de transmisor y una quinta inestable |
+| **Riel sin retorno** | Interrogatorios de *El último vagón* | Percusión ferroviaria apagada, metal grave y notas en movimiento |
 | **Cinta magnética** | Examen de pruebas | Ostinato mínimo, chasquidos suaves y subgrave estable |
 | **Memoria prestada** | Recuerdos y reconstrucciones | Piano felt, reverberación larga y respiraciones armónicas |
 | **Prueba bajo vidrio** | Revelaciones | Capas que se abren, cuerdas graves y un pulso más definido |
