@@ -16,7 +16,7 @@ flowchart LR
   UI --> Actions[Elección / prueba / rectificación]
   Actions --> Engine
   State --> Save[Guardado versionado y respaldo]
-  UI --> Audio[Web Audio local]
+  UI --> Audio[MP3 locales y efectos Web Audio]
 ```
 
 ## Organización
@@ -35,7 +35,8 @@ flowchart LR
 | `src/ui/game.ts` | Sala, confrontación y desenlace |
 | `src/ui/panels.ts` | Expediente, pruebas, archivo, preferencias y vista previa |
 | `src/ui/art.ts` | Escenografía y portadas SVG originales |
-| `src/audio/ambience.ts` | Audio generado en el dispositivo |
+| `src/audio/ambience.ts` | Reproducción, cambios de pista, fundidos y efectos breves |
+| `src/musica/` | Pistas MP3 locales y registro de sus fuentes |
 | `src/main.ts` | Coordinación de acciones, estado, persistencia y modales |
 | `tests/` | Pruebas del motor y navegador |
 
@@ -58,7 +59,7 @@ La carga valida tipos y referencias; admite v1 del prototipo; preserva una versi
 
 ## Seguridad, rendimiento y despliegue
 
-Todo texto insertado en HTML pasa por escape, incluidas las declaraciones originales. La UI no usa `eval`, no interpreta HTML del jugador y no hace solicitudes externas. Solo Web Audio usa azar para sintetizar ruido; la narrativa no usa números aleatorios.
+Todo texto insertado en HTML pasa por escape, incluidas las declaraciones originales. La UI no usa `eval`, no interpreta HTML del jugador y no hace solicitudes externas. La narrativa no usa números aleatorios.
 
 Los paquetes de TypeScript, Vite, Vitest y Playwright son herramientas de desarrollo. La producción contiene HTML, CSS, JavaScript, favicon y service worker. Las fuentes son locales. No hay configuración de secretos ni servidor de aplicación.
 

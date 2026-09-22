@@ -90,7 +90,7 @@ function setGame(game: GameState): void {
   const newlyUnlocked = achievements(data.progress, cases).filter(item => item.unlocked && !previousAchievements.has(item.id));
   if (newlyUnlocked.length === 1) toast(`Logro desbloqueado: ${newlyUnlocked[0]!.title}`);
   else if (newlyUnlocked.length > 1) toast(`${newlyUnlocked.length} logros desbloqueados. Revisalos en el menú.`);
-  void updateAudio();
+  void updateAudio().then(() => { if (newlyUnlocked.length) void audio.achievement(); });
   const heading = document.querySelector<HTMLElement>('#speaker'); heading?.setAttribute('tabindex', '-1'); heading?.focus({ preventScroll: true });
 }
 function launch(id: string, confirmed = false): void {
@@ -150,7 +150,7 @@ document.addEventListener('click', event => {
       case 'export': exportSave(); break;
       case 'reset': modal('Borrar todos los datos', '<p>Se borrarán de este navegador la partida, sus copias de seguridad, las opciones y todos los hallazgos. Esta acción no se puede deshacer.</p><div class="modal-actions"><button class="button secondary" data-action="close">Cancelar</button><button class="button danger-button" data-action="confirm-reset">Sí, borrar todos los datos</button></div>'); break;
       case 'confirm-reset': localStorage.removeItem(SAVE_KEY); localStorage.removeItem(BACKUP_KEY); data = emptySave(); storageBlocked = false; warning = undefined; closeModal(); view = 'home'; void updateAudio(); render(); toast('Se borraron los datos de este juego.'); break;
-      case 'credits': modal('Detrás del expediente', '<p class="eyebrow">¿ESTÁS SEGURO? · EL JUEGO</p><p>Una ficción interactiva original de investigación criminal y terror psicológico, desarrollada a partir de la idea y el documento de diseño de Luis.</p><p>Guion, ilustraciones vectoriales, interfaz y banda sonora sintetizada creados para este proyecto. Todos los personajes, lugares y hechos son ficticios.</p><p>Sin servicios externos, cuentas ni inteligencia artificial durante el juego. Tus partidas permanecen en tu navegador.</p><p class="aside">Versión 1.1 · Cinco expedientes, veinte desenlaces.</p>'); break;
+      case 'credits': modal('Detrás del expediente', '<p class="eyebrow">¿ESTÁS SEGURO? · EL JUEGO</p><p>Una ficción interactiva original de investigación criminal y terror psicológico, desarrollada a partir de la idea y el documento de diseño de Luis.</p><p>Guion, ilustraciones vectoriales e interfaz creados para este proyecto. Música utilizada bajo la Licencia de contenido de Pixabay. Todos los personajes, lugares y hechos son ficticios.</p><p>Sin servicios externos, cuentas ni inteligencia artificial durante el juego. Tus partidas permanecen en tu navegador.</p><p class="aside">Versión 1.1 · Cinco expedientes, veinte desenlaces.</p>'); break;
     }
   } catch (error) { toast(error instanceof Error ? error.message : 'No se pudo completar la acción. La última partida guardada se conserva.'); }
 });

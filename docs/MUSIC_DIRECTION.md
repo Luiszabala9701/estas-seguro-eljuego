@@ -1,21 +1,17 @@
 # Dirección musical
 
-La música del juego debe sentirse como parte del edificio: discreta, repetible y sin una melodía que compita con la lectura. La implementación actual sintetiza estos motivos en el navegador y cambia de uno a otro con fundidos según el caso, el tipo de escena y la tensión. Si más adelante se reemplazan por grabaciones, conviene conservar los mismos nombres y disparadores.
+La música debe acompañar la lectura sin cubrirla. La implementación usa pistas MP3 locales, volumen moderado, reproducción en bucle y un fundido al cambiar de pantalla. El navegador solo inicia el audio después de una acción del jugador.
 
-| Tema | Uso dinámico | Sonido sugerido |
-| --- | --- | --- |
-| **Archivo dormido** | Menú y consulta del archivo | Piano preparado muy distante, ruido de cinta y lluvia filtrada |
-| **Trofeos en penumbra** | Menú de logros | Campanas apagadas y un arpegio ascendente breve |
-| **La línea bajo la lluvia** | Interrogatorios de *La última llamada* | Pulsos graves, teléfono apagado, notas aisladas de Rhodes |
-| **Trece minutos de más** | Interrogatorios de *Habitación 309* | Tic irregular, contrabajo con arco y metal del ascensor |
-| **El carrete recuerda** | Interrogatorios de *El testigo imposible* | Cinta inestable, armónicos de vidrio y piano invertido |
-| **Frecuencia cero** | Interrogatorios de *La frecuencia muerta* | Ondas cortas, pulsos de transmisor y una quinta inestable |
-| **Riel sin retorno** | Interrogatorios de *El último vagón* | Percusión ferroviaria apagada, metal grave y notas en movimiento |
-| **Cinta magnética** | Examen de pruebas | Ostinato mínimo, chasquidos suaves y subgrave estable |
-| **Memoria prestada** | Recuerdos y reconstrucciones | Piano felt, reverberación larga y respiraciones armónicas |
-| **Prueba bajo vidrio** | Revelaciones | Capas que se abren, cuerdas graves y un pulso más definido |
-| **La versión se quiebra** | Contradicciones o tensión alta | Ritmo corto e irregular, disonancia contenida y menos reverberación |
-| **La última firma** | Decisiones finales | Pulso lento, nota pedal y crecimiento que nunca llega a una explosión |
-| **Después del acta** | Desenlaces | Variación del tema del caso, más espaciosa y con una resolución ambigua |
+| Archivo | Uso |
+| --- | --- |
+| `menu.mp3` | Menú principal y archivo |
+| `logros.mp3` | Menú de logros |
+| `caso-01.mp3` | *La última llamada* |
+| `caso-02.mp3` | *Habitación 309* |
+| `caso-03.mp3` | *El testigo imposible* |
+| `caso-04.mp3` | *La frecuencia muerta* |
+| `caso-05.mp3` | *El último vagón* |
+| `finales.mp3` | Desenlaces de todos los casos |
+| `logro-desbloqueado.mp3` | Efecto breve al obtener un logro |
 
-Para archivos de audio futuros, cada tema debería exportarse como bucle sin corte de 60 a 120 segundos, con capas separadas de pulso, textura y armonía. Así el juego puede sumar o quitar capas por tensión sin reiniciar la pista.
+Las pistas se empaquetan con el juego y el service worker las guarda para jugar sin conexión después de la primera carga completa. Sus fuentes y autores están registrados en `src/musica/README.md`.

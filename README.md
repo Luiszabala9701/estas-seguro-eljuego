@@ -38,7 +38,7 @@ El texto libre tiene dominios explícitos. La frase original y la interpretació
 
 El primer caso está abierto. Cualquier final, favorable o desfavorable, desbloquea el siguiente. Repetir un caso conserva los hallazgos del archivo; comenzar otro reemplaza la partida activa solo tras confirmación.
 
-Incluye expediente, historial íntegro de declaraciones y rectificaciones, recuerdos, personajes, contradicciones utilizadas, banda sonora dinámica y ambiente sintetizados, volumen, silencio, texto grande, reducción de movimiento y guardado automático versionado con copia de respaldo.
+Incluye expediente, historial íntegro de declaraciones y rectificaciones, recuerdos, personajes, contradicciones utilizadas, banda sonora dinámica con una pista por caso, volumen, silencio, texto grande, reducción de movimiento y guardado automático versionado con copia de respaldo.
 
 ## Pruebas y compilación
 
@@ -73,4 +73,4 @@ Una migración compatible admite el formato v1 del prototipo. Una versión futur
 - [Pruebas y límites de verificación](docs/TESTING.md)
 - [Subir al repositorio y publicar](docs/DEPLOYMENT.md)
 
-El arte SVG es original, deliberadamente estilizado y reemplazable. Los registros de audio se presentan mediante transcripciones completas y ambiente sintetizado; no hay voces grabadas. No se necesita ningún recurso externo durante una partida.
+El arte SVG es original, deliberadamente estilizado y reemplazable. Los registros de audio se presentan mediante transcripciones completas; no hay voces grabadas. La música se distribuye con la compilación y no necesita conexión durante una partida.

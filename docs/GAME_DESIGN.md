@@ -35,7 +35,7 @@ Paleta de verdes oscuros, papel envejecido y acentos de óxido. Tipografía de s
 
 El movimiento es lento y prescindible: grabación, onda, interacción y texto progresivo interrumpible. Los recuerdos cambian el tratamiento visual. No hay flashes ni sustos repentinos. Los efectos no bloquean las respuestas.
 
-Web Audio genera lluvia filtrada, un zumbido eléctrico y un breve tono de cinta. El audio empieza solo por una acción del jugador; se suspende al ocultar la pestaña. Las voces se leen en transcripciones. El silencio es una opción completa.
+Pistas MP3 locales distinguen el menú, los logros, cada caso y los desenlaces. Los cambios usan fundidos; Web Audio conserva un breve efecto de cinta. El audio empieza solo por una acción del jugador y se suspende al ocultar la pestaña. Las voces se leen en transcripciones. El silencio es una opción completa.
 
 ## Accesibilidad y uso móvil
 

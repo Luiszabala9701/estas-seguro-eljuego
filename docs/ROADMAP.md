@@ -15,7 +15,7 @@ La entrega incluye el contenido jugable de los cinco casos. Ningún expediente e
 ## Límites explícitos de esta versión
 
 - Arte vectorial estilizado: no hay retratos fotográficos ni animación facial compleja. Las variantes de investigadores y luz son ilustraciones SVG.
-- Audio ambiental sintetizado y transcripciones íntegras: no incluye actuación de voz ni grabaciones habladas.
+- Música ambiental en MP3 y transcripciones íntegras: no incluye actuación de voz ni grabaciones habladas.
 - El texto libre reconoce dominios seleccionados, no conversación abierta.
 - Las duraciones del menú son estimaciones de lectura y exploración, no mediciones con jugadores externos.
 - Se exporta el guardado; importar un JSON desde la interfaz queda para una ampliación opcional.
