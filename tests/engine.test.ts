@@ -6,6 +6,7 @@ import { interpret } from '../src/engine/interpreter';
 import { validateCase } from '../src/engine/validation';
 import { decodeSave, emptySave, load, save, SAVE_KEY, BACKUP_KEY, updateProgress, type StorageLike } from '../src/engine/persistence';
 import type { CaseData, GameState } from '../src/engine/types';
+import { achievements, caseCompletion } from '../src/achievements';
 const domain = lastCall.scenes.find(s => s.id === 'location')!.input!;
 export function settle(s: GameState, c = lastCall): GameState {
   let count = 0; while (pendingConfrontation(s)) { if (++count > 40) throw new Error('Bucle de confrontaciones'); s = resolveConfrontation(s, c, 'explain'); } return s;
@@ -55,6 +56,12 @@ describe('motor de memoria', () => {
   it('presentar una prueba depende del contexto y no acumula efectos', () => {
     let s = route(lastCall, ['friend', 'yes', 'input:workshop', 'admit', 'recorder', 'open', 'hold']); expect(s.sceneId).toBe('trust'); s = presentEvidence(s, lastCall, 'accounts'); expect(s.flags.protection).toBe(true); expect(s.investigatorEvidence).toContain('accounts'); const before = s.declarations.length; s = presentEvidence(s, lastCall, 'accounts'); expect(s.declarations).toHaveLength(before); expect(s.lastReaction).toContain('Ya incorporamos');
   });
+  it('no vuelve a ofrecer una respuesta ya elegida', () => {
+    let s = choose(startCase(lastCall), lastCall, 'friend');
+    s.sceneId = lastCall.initialScene;
+    expect(availableOptions(s, lastCall).map(option => option.id)).not.toContain('friend');
+    expect(s.sceneVisits[lastCall.initialScene]).toBe(1);
+  });
 });
 describe('cuatro finales del primer caso', () => {
   const common = ['friend', 'yes', 'input:workshop', 'admit', 'recorder'];
@@ -78,4 +85,13 @@ describe('persistencia', () => {
   it('conserva hallazgos al repetir', () => { const game = route(lastCall, ['friend', 'yes', 'input:workshop', 'admit', 'recorder', 'north', 'stop', 'finish']); const progress = updateProgress(emptySave().progress, game, [lastCall]); const updated = updateProgress(progress, startCase(lastCall), [lastCall]); expect(updated.endings[lastCall.id]).toEqual(['eco']); expect(updated.evidence[lastCall.id]).toContain('tape'); });
   it('advierte cuando el almacenamiento está deshabilitado', () => { const store: StorageLike = { getItem() { throw new Error('blocked'); }, setItem() { throw new Error('blocked'); }, removeItem() {} }; expect(load(store, [lastCall]).warning).toContain('no permite guardar'); });
   it('no reemplaza un guardado futuro por un respaldo antiguo', () => { const store = memory(); store.setItem(SAVE_KEY, JSON.stringify({ version: 99 })); store.setItem(BACKUP_KEY, JSON.stringify(emptySave())); expect(load(store, [lastCall]).blocked).toBe(true); expect(store.getItem(SAVE_KEY)).toContain('99'); });
+});
+describe('logros', () => {
+  it('se derivan de finales y pruebas guardados', () => {
+    const progress = emptySave().progress;
+    progress.endings[lastCall.id] = lastCall.endings.map(ending => ending.id);
+    progress.evidence[lastCall.id] = lastCall.evidence.map(evidence => evidence.id);
+    expect(caseCompletion(progress, lastCall).complete).toBe(true);
+    expect(achievements(progress, [lastCall]).filter(item => item.unlocked)).toHaveLength(lastCall.endings.length + 2);
+  });
 });

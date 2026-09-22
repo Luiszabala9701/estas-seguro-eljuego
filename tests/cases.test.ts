@@ -43,7 +43,7 @@ describe.each(cases)('$title', data => {
         s = settle(s, data, seed % 2 === 0);
         const scene = currentScene(s, data); const options = availableOptions(s, data);
         if (scene.input && rng() < .7) { const category = scene.input.categories[Math.floor(rng() * scene.input.categories.length)]!; s = answerInput(s, data, category.id, category.label); }
-        else { expect(options.length).toBeGreaterThan(0); s = choose(s, data, options[Math.floor(rng() * options.length)]!.id); }
+        else { expect(options.length, `semilla ${seed}, escena ${s.sceneId}, paso ${steps}`).toBeGreaterThan(0); s = choose(s, data, options[Math.floor(rng() * options.length)]!.id); }
       }
       expect(s.endingId, `semilla ${seed}, escena ${s.sceneId}`).toBeTruthy();
       expect(s.suspicion).toBeLessThanOrEqual(100); expect(s.tension).toBeLessThanOrEqual(100);

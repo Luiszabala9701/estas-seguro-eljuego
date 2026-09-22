@@ -8,9 +8,10 @@ import { validateCase } from './engine/validation';
 import type { GameState, Settings } from './engine/types';
 import { home } from './ui/home';
 import { gameView, endingView } from './ui/game';
-import { settingsPanel, journalPanel, evidencePanel, archivePanel, casePanel } from './ui/panels';
+import { settingsPanel, journalPanel, evidencePanel, archivePanel, achievementsPanel, casePanel } from './ui/panels';
 import { escapeHtml as h, icon } from './ui/icons';
-import { Ambience } from './audio/ambience';
+import { Ambience, type CueId } from './audio/ambience';
+import { achievements, unlockedAchievementIds } from './achievements';
 
 const app = document.querySelector<HTMLDivElement>('#app')!;
 const modalRoot = document.querySelector<HTMLDivElement>('#modal-root')!;
@@ -43,7 +44,18 @@ function appearance(): void {
   document.documentElement.classList.toggle('large-text', data.settings.textSize === 'large');
 }
 async function updateAudio(): Promise<void> {
-  try { await audio.configure(data.settings.audio, data.settings.volume); }
+  const cue = (): CueId => {
+    if (view === 'home' || !data.game) return 'archive';
+    if (data.game.endingId) return 'aftermath';
+    const scene = currentScene(data.game, caseData());
+    if (pendingConfrontation(data.game) || data.game.tension > 65) return 'fracture';
+    if (scene.kind === 'decision') return 'last-signature';
+    if (scene.kind === 'revelation') return 'under-glass';
+    if (scene.kind === 'memory') return 'borrowed-memory';
+    if (scene.kind === 'evidence') return 'magnetic';
+    return data.game.caseId === 'ultima-llamada' ? 'rain-line' : data.game.caseId === 'habitacion-309' ? 'thirteen-minutes' : 'old-reel';
+  };
+  try { audio.setCue(cue()); await audio.configure(data.settings.audio, data.settings.volume); }
   catch { data.settings.audio = false; persist(); toast('El audio no está disponible. Podés seguir jugando en silencio.'); }
 }
 function finishTyping(): void {
@@ -83,7 +95,12 @@ function modal(title: string, body: string, wide = false): void {
   app.inert = true;
 }
 function setGame(game: GameState): void {
+  const previousAchievements = new Set(unlockedAchievementIds(data.progress, cases));
   data.game = game; view = 'game'; interpretation = undefined; persist(); closeModal(); render();
+  const newlyUnlocked = achievements(data.progress, cases).filter(item => item.unlocked && !previousAchievements.has(item.id));
+  if (newlyUnlocked.length === 1) toast(`Logro desbloqueado: ${newlyUnlocked[0]!.title}`);
+  else if (newlyUnlocked.length > 1) toast(`${newlyUnlocked.length} logros desbloqueados. Revisalos en el menú.`);
+  void updateAudio();
   const heading = document.querySelector<HTMLElement>('#speaker'); heading?.setAttribute('tabindex', '-1'); heading?.focus({ preventScroll: true });
 }
 function launch(id: string, confirmed = false): void {
@@ -117,8 +134,8 @@ document.addEventListener('click', event => {
   const { action, id = '' } = button.dataset;
   try {
     switch (action) {
-      case 'home': closeModal(); view = 'home'; render(); window.scrollTo(0, 0); break;
-      case 'cases': closeModal(); view = 'home'; render(); document.querySelector('#cases')?.scrollIntoView({ behavior: data.settings.reducedMotion ? 'instant' : 'smooth' }); break;
+      case 'home': closeModal(); view = 'home'; render(); window.scrollTo(0, 0); void updateAudio(); break;
+      case 'cases': closeModal(); view = 'home'; render(); document.querySelector('#cases')?.scrollIntoView({ behavior: data.settings.reducedMotion ? 'instant' : 'smooth' }); void updateAudio(); break;
       case 'new': launch(cases[0]!.id); break;
       case 'start': launch(id); break;
       case 'confirm-start': launch(id, true); break;
@@ -135,6 +152,7 @@ document.addEventListener('click', event => {
       case 'present': if (data.game) setGame(presentEvidence(data.game, caseData(), id)); break;
       case 'settings': modal('Opciones', settingsPanel(data, warning)); break;
       case 'archive': modal('Archivo de investigación', archivePanel(data, cases), true); break;
+      case 'achievements': modal('Logros', achievementsPanel(data, cases), true); break;
       case 'audio': data.settings.audio = !data.settings.audio; persist(); void updateAudio(); render(); toast(data.settings.audio ? 'Ambiente activado' : 'Ambiente silenciado'); break;
       case 'tape': data.settings.audio = true; persist(); void updateAudio().then(() => audio.tape()); toast('Ambiente de cinta · La grabación se lee en la transcripción.'); break;
       case 'input-confirm': if (data.game && interpretation) setGame(answerInput(data.game, caseData(), id, interpretation.original)); break;

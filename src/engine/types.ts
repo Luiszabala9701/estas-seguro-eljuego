@@ -17,6 +17,7 @@ export interface Option {
   id: string; text: string; hint?: string; when?: Condition; effects?: Effect[];
   to: string | { when: Condition; to: string }[];
   fallback?: string;
+  repeatable?: boolean;
 }
 export interface InputCategory {
   id: string; label: string; patterns: string[]; negatedPatterns?: string[];
@@ -26,7 +27,7 @@ export interface InputDomain { prompt: string; categories: InputCategory[]; to: 
 export interface Scene {
   id: string; chapter: string; time: string;
   kind: 'interview' | 'memory' | 'evidence' | 'decision' | 'revelation';
-  speaker?: string; text: string; aside?: string;
+  speaker?: string; text: string; revisitText?: string; aside?: string;
   variants?: { when: Condition; text: string }[];
   onEnter?: Effect[]; options: Option[]; input?: InputDomain;
   presentation?: Record<string, { reply: string; effects: Effect[] }>;
@@ -81,7 +82,7 @@ export interface GameState {
   evidenceDiscovery: Record<string, { order: number; time: string }>;
   flags: Record<string, Value>; suspicion: number; tension: number;
   choices: { scene: string; option: string; text: string; order: number }[];
-  memories: string[]; visited: string[]; endingId?: string;
+  memories: string[]; visited: string[]; sceneVisits: Record<string, number>; endingId?: string;
   lastReaction?: string;
 }
 export interface Progress {

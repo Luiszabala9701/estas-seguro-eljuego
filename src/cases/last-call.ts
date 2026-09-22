@@ -83,7 +83,8 @@ export const lastCall: CaseData = {
     scene('trust', 'IV · Fuera de la jurisdicción', '07:55', 'Salvatierra cierra la puerta.\n«Pedí apartar a Borda. Todavía no me respondieron. Puedo entregar material a fiscalía con una copia fuera del puerto. No puedo prometerte que nada vaya a salir mal».\nPor primera vez, parece tan cansada como vos.', [
       option('trust', 'Quiero una copia sellada y protección para los dos hermanos.', 'route', [flag('protection'), feel(-5, -8)]),
       option('distrust', 'No confío en nadie que use esa placa.', 'route', [flag('distrust')]),
-      option('testify', 'Si queda registrado fuera del puerto, voy a declarar.', 'route', [flag('protection'), flag('testify')])
+      option('testify', 'Si queda registrado fuera del puerto, voy a declarar.', 'route', [flag('protection'), flag('testify')]),
+      { ...option('continue-route', 'Mi posición ya quedó registrada. Sigamos con la ubicación.', 'route'), when: { visited: 'destination' }, repeatable: true }
     ], { presentation: { accounts: { reply: 'Estas firmas justifican intervenir fuera del puerto. Voy a sellar una copia ahora.', effects: [flag('sharedAccounts'), flag('protection'), proof('custody')] } } }),
     scene('route', 'IV · Fuera de la jurisdicción', '08:02', 'Un agente golpea una sola vez. Trae una imagen de la salida norte: Elena al volante, Mateo junto a ella. Está vivo en esa fotografía.\n«No sabemos dónde está ahora. Tu próximo dato puede ayudarnos a encontrarlo, o avisarles a quienes lo buscan».', [
       { ...option('find', 'Reconstruir el destino con la grabación.', 'destination'), when: { evidence: 'tape' } },

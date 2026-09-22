@@ -7,7 +7,11 @@ export const currentScene = (state: GameState, data: CaseData) => {
   if (!scene) throw new Error(`Escena inexistente: ${state.sceneId}`);
   return scene;
 };
-export const availableOptions = (state: GameState, data: CaseData) => currentScene(state, data).options.filter(o => matches(state, o.when));
+export const availableOptions = (state: GameState, data: CaseData) => currentScene(state, data).options.filter(option => {
+  if (!matches(state, option.when)) return false;
+  return option.repeatable || !state.choices.some(choice => choice.scene === state.sceneId && choice.option === option.id);
+});
+export const answeredInput = (state: GameState): boolean => state.choices.some(choice => choice.scene === state.sceneId && choice.option.startsWith('input:'));
 const uniquePush = (items: string[], value: string) => { if (!items.includes(value)) items.push(value); };
 
 export function applyEffects(state: GameState, data: CaseData, effects: Effect[], original: string): void {
@@ -50,11 +54,12 @@ function enter(state: GameState, data: CaseData, destination: string): void {
   const scene = currentScene(state, data);
   state.phase = scene.chapter;
   uniquePush(state.visited, destination);
+  state.sceneVisits[destination] = (state.sceneVisits[destination] ?? 0) + 1;
   applyEffects(state, data, scene.onEnter ?? [], '');
   detectContradictions(state, data);
 }
 export function startCase(data: CaseData): GameState {
-  const state: GameState = { version: 2, caseId: data.id, sceneId: data.initialScene, phase: '', order: 0, declarations: [], contradictions: [], playerKnowledge: { ...data.initialKnowledge }, investigatorEvidence: [], discoveredEvidence: [], presentedEvidence: [], evidenceDiscovery: {}, flags: {}, suspicion: 15, tension: 20, choices: [], memories: [], visited: [] };
+  const state: GameState = { version: 2, caseId: data.id, sceneId: data.initialScene, phase: '', order: 0, declarations: [], contradictions: [], playerKnowledge: { ...data.initialKnowledge }, investigatorEvidence: [], discoveredEvidence: [], presentedEvidence: [], evidenceDiscovery: {}, flags: {}, suspicion: 15, tension: 20, choices: [], memories: [], visited: [], sceneVisits: {} };
   enter(state, data, data.initialScene);
   return state;
 }

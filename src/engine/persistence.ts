@@ -18,9 +18,12 @@ export function decodeSave(raw: string, cases: CaseData[]): SaveData {
     parsed.version = 2;
     if (record(parsed.settings)) parsed.settings = { ...defaultSettings(), ...parsed.settings };
     if (record(parsed.progress)) parsed.progress = { ...defaultProgress(), ...parsed.progress };
-    if (record(parsed.game)) parsed.game = { ...parsed.game, version: 2, evidenceDiscovery: parsed.game.evidenceDiscovery ?? {} };
+    if (record(parsed.game)) parsed.game = { ...parsed.game, version: 2, evidenceDiscovery: parsed.game.evidenceDiscovery ?? {}, sceneVisits: parsed.game.sceneVisits ?? Object.fromEntries((strings(parsed.game.visited) ? parsed.game.visited : []).map(id => [id, 1])) };
   }
   if (parsed.version !== 2) throw new Error('Este guardado pertenece a otra versión. Se conserva sin sobrescribir.');
+  // Early v2 saves predate visit counters. Rebuild the minimum compatible
+  // value from their unique scene history without discarding the save.
+  if (record(parsed.game) && !record(parsed.game.sceneVisits)) parsed.game.sceneVisits = Object.fromEntries((strings(parsed.game.visited) ? parsed.game.visited : []).map(id => [id, 1]));
   const p = parsed.progress; const s = parsed.settings;
   if (!record(p) || !strings(p.unlocked) || !strings(p.completed) || !stringLists(p.endings) || !stringLists(p.evidence) || !stringLists(p.scenes)) throw new Error('El progreso está incompleto.');
   if (!record(s) || !['audio', 'reducedMotion', 'instantText', 'showStats'].every(k => typeof s[k] === 'boolean') || typeof s.volume !== 'number' || !Number.isFinite(s.volume) || s.volume < 0 || s.volume > 100 || !['normal', 'large'].includes(String(s.textSize))) throw new Error('Las opciones están dañadas.');
@@ -39,7 +42,7 @@ function validateGame(value: unknown, cases: CaseData[]): asserts value is GameS
   if (!data || value.version !== 2 || !data.scenes.some(s => s.id === value.sceneId)) throw new Error('La escena guardada no existe.');
   if (value.endingId !== undefined && !data.endings.some(e => e.id === value.endingId)) throw new Error('El final guardado no existe.');
   if (!['suspicion', 'tension', 'order'].every(k => typeof value[k] === 'number' && Number.isFinite(value[k]) && (value[k] as number) >= 0)) throw new Error('Variables de partida dañadas.');
-  if (!primitiveRecord(value.flags) || !primitiveRecord(value.playerKnowledge) || !record(value.evidenceDiscovery) || typeof value.phase !== 'string') throw new Error('Memoria de partida dañada.');
+  if (!primitiveRecord(value.flags) || !primitiveRecord(value.playerKnowledge) || !record(value.evidenceDiscovery) || !record(value.sceneVisits) || !Object.values(value.sceneVisits).every(count => typeof count === 'number' && Number.isInteger(count) && count >= 1) || typeof value.phase !== 'string') throw new Error('Memoria de partida dañada.');
   for (const key of ['investigatorEvidence', 'discoveredEvidence', 'presentedEvidence']) if (!strings(value[key]) || !(value[key] as string[]).every(id => data.evidence.some(e => e.id === id))) throw new Error('Pruebas de partida dañadas.');
   if (!strings(value.visited) || !value.visited.every(id => data.scenes.some(s => s.id === id)) || !strings(value.memories)) throw new Error('Escenas de partida dañadas.');
   if (!Array.isArray(value.declarations) || !value.declarations.every(d => record(d) && typeof d.id === 'string' && typeof d.fact === 'string' && typeof d.original === 'string' && typeof d.order === 'number' && typeof d.narrativeTime === 'string' && ['certain', 'uncertain', 'withheld'].includes(String(d.certainty)) && ['active', 'rectified', 'uncertain', 'withheld'].includes(String(d.status)) && strings(d.evidenceIds) && ['string', 'boolean', 'number'].includes(typeof d.value))) throw new Error('Declaraciones de partida dañadas.');
