@@ -2,7 +2,7 @@
 
 ## Resultado de la entrega
 
-- 67 pruebas de motor, narrativa, interpretación, música y guardado; incluyen 500 recorridos deterministas y rutas a los veinte finales.
+- Pruebas de motor, narrativa, interpretación, música y guardado; incluyen 100 recorridos deterministas por expediente.
 - 15 pruebas de interfaz aprobadas: cinco flujos en Chrome escritorio, Chrome móvil emulado y Edge escritorio.
 - 1 prueba de producción sin conexión aprobada, con recarga y restauración de partida.
 - Compilación de producción completada con TypeScript estricto.
@@ -33,7 +33,7 @@ Las pruebas de navegador usan instalaciones locales de Chrome y Edge con perfile
 - Historial conservado y correcciones de varias versiones sin bucles.
 - Verificación de procedencia con documentos adicionales.
 - Reacciones por contexto de escena y prueba, sin acumular beneficios al repetir.
-- Recorridos explícitos hasta los veinte finales.
+- Recorridos explícitos de los casos originales y recorridos deterministas de los cuarenta finales posibles.
 - 100 partidas deterministas por caso, alternando explicación y rectificación, para detectar bloqueos y variables fuera de rango.
 - Referencias, variables, evidencia, condiciones, transiciones, finales de respaldo y alcance estático.
 - Restauración coherente, recuperación de JSON roto, protección de versiones futuras y migración v1.

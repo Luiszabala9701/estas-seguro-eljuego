@@ -1,15 +1,9 @@
 import type { CaseData, GameState } from '../engine/types';
-import menuTrack from '../musica/menu.mp3';
-import achievementsTrack from '../musica/logros.mp3';
-import case01Track from '../musica/caso-01.mp3';
-import case02Track from '../musica/caso-02.mp3';
-import case03Track from '../musica/caso-03.mp3';
-import case04Track from '../musica/caso-04.mp3';
-import case05Track from '../musica/caso-05.mp3';
-import endingsTrack from '../musica/finales.mp3';
-import achievementUnlockedTrack from '../musica/logro-desbloqueado.mp3';
 
-export type CueId = 'archive' | 'achievements' | 'rain-line' | 'thirteen-minutes' | 'old-reel' | 'dead-frequency' | 'last-carriage' | 'aftermath';
+const musicFiles = import.meta.glob('../musica/*.mp3', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const track = (name: string, fallback = 'menu') => musicFiles[`../musica/${name}.mp3`] ?? musicFiles[`../musica/${fallback}.mp3`] ?? '';
+
+export type CueId = 'archive' | 'achievements' | 'rain-line' | 'thirteen-minutes' | 'old-reel' | 'dead-frequency' | 'last-carriage' | 'service-floor' | 'drowned-foundation' | 'blind-camera' | 'mile-seventeen' | 'zero-index' | 'aftermath';
 
 export const CUE_TITLES: Record<CueId, string> = {
   archive: 'Noir de medianoche',
@@ -19,26 +13,43 @@ export const CUE_TITLES: Record<CueId, string> = {
   'old-reel': 'El carrete recuerda',
   'dead-frequency': 'Frecuencia cero',
   'last-carriage': 'Riel sin retorno',
+  'service-floor': 'El piso que no figura',
+  'drowned-foundation': 'Debajo de la cota',
+  'blind-camera': 'Seis minutos a oscuras',
+  'mile-seventeen': 'La ruta sin testigos',
+  'zero-index': 'Todo lo que quisieron borrar',
   aftermath: 'Después del acta'
 };
 
 const tracks: Record<CueId, string> = {
-  archive: menuTrack,
-  achievements: achievementsTrack,
-  'rain-line': case01Track,
-  'thirteen-minutes': case02Track,
-  'old-reel': case03Track,
-  'dead-frequency': case04Track,
-  'last-carriage': case05Track,
-  aftermath: endingsTrack
+  archive: track('menu'),
+  achievements: track('logros'),
+  'rain-line': track('caso-01'),
+  'thirteen-minutes': track('caso-02'),
+  'old-reel': track('caso-03'),
+  'dead-frequency': track('caso-04'),
+  'last-carriage': track('caso-05'),
+  'service-floor': track('caso-06', 'caso-01'),
+  'drowned-foundation': track('caso-07', 'caso-02'),
+  'blind-camera': track('caso-08', 'caso-03'),
+  'mile-seventeen': track('caso-09', 'caso-04'),
+  'zero-index': track('caso-10', 'caso-05'),
+  aftermath: track('finales')
 };
+
+const achievementUnlockedTrack = track('logro-desbloqueado');
 
 const caseCues: Record<string, CueId> = {
   'ultima-llamada': 'rain-line',
   'habitacion-309': 'thirteen-minutes',
   'testigo-imposible': 'old-reel',
   'frecuencia-muerta': 'dead-frequency',
-  'ultimo-vagon': 'last-carriage'
+  'ultimo-vagon': 'last-carriage',
+  'ascensor-vacio': 'service-floor',
+  'casa-sumergida': 'drowned-foundation',
+  'camara-ciega': 'blind-camera',
+  'kilometro-diecisiete': 'mile-seventeen',
+  'archivo-cero': 'zero-index'
 };
 
 export function cueForGame(game: GameState, _data: CaseData): CueId {

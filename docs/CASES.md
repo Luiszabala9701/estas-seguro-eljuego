@@ -79,6 +79,26 @@ Alma lleva una auditoría que compromete a la concesionaria. Julián corta la c�
 | La vía equivocada | Ratificar una acusación falsa contra Benítez |
 | El tren llega vacío | Cerrar sin convertir la parada en una ruta de búsqueda |
 
+## 06 · El ascensor vacío
+
+Lara Soria ayudó al cirujano Esteban Mena a entrar en un subsuelo hospitalario oculto. Mena llevaba pruebas de que la administración vendía prioridades médicas. El jugador decide entre rescatarlo, publicar la lista, proteger a los pacientes o cerrar la declaración.
+
+## 07 · La casa sumergida
+
+Tomás Roldán anuló las alarmas del embalse para que su hermana Lucía recuperara documentos de expropiaciones falsificadas. Un cambio de caudal la deja atrapada en una cámara con aire limitado. La verdad histórica y el rescate compiten por los mismos minutos.
+
+## 08 · La cámara ciega
+
+Emilia Funes creó un bucle en las cámaras del museo para que el curador Leandro Costa documentara la procedencia ilegal de una pintura. Durante esos seis minutos Costa murió y la obra desapareció detrás de un panel interno.
+
+## 09 · Kilómetro 17
+
+Andrés Ferreyra sacó del recorrido a Micaela Soto, testigo de una red de trata protegida por agentes de carretera. El GPS y la hoja de ruta fueron alterados. Dar la ubicación puede salvarla o conducir hasta ella a las mismas personas de las que huía.
+
+## 10 · El archivo cero
+
+Noa Vidal copió diez expedientes marcados para eliminación después de recibir la advertencia de Julián Arce. La autorización maestra conecta oficinas y casos que parecían aislados. El desenlace decide si el archivo se recupera, se publica íntegro, se entrega con nombres protegidos o desaparece.
+
 ## Identidad y rejugabilidad
 
-Los cinco casos exploran distintas formas de declarar bajo presión: proteger a una persona, reconstruir una muerte, corregir una identificación, asumir un encubrimiento y decidir cuándo romper un protocolo. La progresión acumula finales, pruebas y escenas vistas, sin mostrar títulos o secretos de desenlaces no descubiertos.
+Los diez casos exploran distintas formas de declarar bajo presión: proteger a una persona, reconstruir una muerte, corregir una identificación, asumir un encubrimiento, preservar pruebas y decidir cuándo romper un protocolo. La progresión acumula finales, pruebas y escenas vistas, sin mostrar títulos o secretos de desenlaces no descubiertos.

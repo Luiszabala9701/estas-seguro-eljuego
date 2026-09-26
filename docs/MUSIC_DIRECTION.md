@@ -11,7 +11,12 @@ La música debe acompañar la lectura sin cubrirla. La implementación usa pista
 | `caso-03.mp3` | *El testigo imposible* |
 | `caso-04.mp3` | *La frecuencia muerta* |
 | `caso-05.mp3` | *El último vagón* |
+| `caso-06.mp3` | *El ascensor vacío* |
+| `caso-07.mp3` | *La casa sumergida* |
+| `caso-08.mp3` | *La cámara ciega* |
+| `caso-09.mp3` | *Kilómetro 17* |
+| `caso-10.mp3` | *El archivo cero* |
 | `finales.mp3` | Desenlaces de todos los casos |
 | `logro-desbloqueado.mp3` | Efecto breve al obtener un logro |
 
-Las pistas se empaquetan con el juego y el service worker las guarda para jugar sin conexión después de la primera carga completa. Sus fuentes y autores están registrados en `src/musica/README.md`.
+Las pistas se empaquetan con el juego y el service worker las guarda para jugar sin conexión después de la primera carga completa. Mientras falte alguno de los archivos de los casos 06–10, el reproductor usa temporalmente una pista existente; al copiar el MP3 con el nombre previsto, Vite lo incorpora sin otro cambio de código. Sus fuentes y autores están registrados en `src/musica/README.md`.

@@ -4,6 +4,7 @@ import { startCase, choose, answerInput, resolveConfrontation, pendingConfrontat
 import { validateCase } from '../src/engine/validation';
 import { updateProgress, emptySave, decodeSave } from '../src/engine/persistence';
 import type { CaseData, GameState } from '../src/engine/types';
+import { achievements } from '../src/achievements';
 export const paths: Record<string, Record<string, string[]>> = {
   'habitacion-309': {
     defensa: ['entered', 'pilar-first', 'locate', 'input:boiler', 'align', 'blackmail', 'admit-room', 'remember', 'confess-force', 'find-knife', 'defense', 'formal-defense', 'finish'],
@@ -76,4 +77,17 @@ it('un guardado anterior con el caso 03 completo desbloquea el caso 04', () => {
 it('una rectificación de relación no escribe un booleano en el vínculo', () => {
   const c = cases[0]!; let s = choose(startCase(c), c, 'stranger'); s = choose(s, c, 'yes'); s = settle(s, c, true);
   expect(s.declarations.filter(d => d.fact === 'relationship').at(-1)?.value).toBe('friend');
+});
+it('los logros reflejan diez expedientes y cuarenta finales', () => {
+  const progress = emptySave().progress;
+  for (const data of cases) {
+    progress.endings[data.id] = data.endings.map(ending => ending.id);
+    progress.evidence[data.id] = data.evidence.map(evidence => evidence.id);
+  }
+  const items = achievements(progress, cases);
+  expect(cases).toHaveLength(10);
+  expect(cases.flatMap(data => data.endings)).toHaveLength(40);
+  expect(items).toHaveLength(51);
+  expect(items.every(item => item.unlocked)).toBe(true);
+  expect(items.find(item => item.id === 'game:complete')?.total).toBe(10);
 });

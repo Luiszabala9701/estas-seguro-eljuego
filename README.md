@@ -1,6 +1,6 @@
 # ¿Estás seguro? El juego
 
-Juego narrativo original en español de investigación criminal y terror psicológico. Cinco casos completos, veinte finales y un motor determinista que conserva declaraciones, separa los hechos del conocimiento del investigador y abre confrontaciones según las pruebas disponibles.
+Juego narrativo original en español de investigación criminal y terror psicológico. Diez casos completos, cuarenta finales y un motor determinista que conserva declaraciones, separa los hechos del conocimiento del investigador y abre confrontaciones según las pruebas disponibles.
 
 ## Jugar en esta computadora
 
@@ -35,6 +35,11 @@ El texto libre tiene dominios explícitos. La frase original y la interpretació
 | El testigo imposible | Procedencia de una imagen, identificación, recuerdos y encubrimiento histórico | 4 |
 | La frecuencia muerta | Audio programado, incendio encubierto y búsqueda bajo amenaza | 4 |
 | El último vagón | Telemetría ferroviaria, una parada secreta y protección de una testigo | 4 |
+| El ascensor vacío | Accesos hospitalarios, una lista alterada y un subsuelo clandestino | 4 |
+| La casa sumergida | Telemetría hidráulica, expropiaciones falsas y rescate bajo el embalse | 4 |
+| La cámara ciega | Video manipulado, patrimonio robado y un crimen durante el apagón | 4 |
+| Kilómetro 17 | GPS interrumpido, una parada clandestina y protección de una testigo | 4 |
+| El archivo cero | Borrado masivo, copias distribuidas y conexión entre expedientes | 4 |
 
 El primer caso está abierto. Cualquier final, favorable o desfavorable, desbloquea el siguiente. Repetir un caso conserva los hallazgos del archivo; comenzar otro reemplaza la partida activa solo tras confirmación.
 
