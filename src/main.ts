@@ -71,6 +71,7 @@ function render(): void {
 }
 function closeModal(): void {
   modalRoot.querySelector('dialog')?.close(); modalRoot.innerHTML = '';
+  document.documentElement.classList.remove('modal-open');
   app.inert = false;
   lastFocus?.focus({ preventScroll: true });
   void updateAudio();
@@ -83,6 +84,7 @@ function modal(title: string, body: string, wide = false): void {
   dialog.addEventListener('cancel', event => { event.preventDefault(); closeModal(); });
   dialog.addEventListener('click', event => { if (event.target === dialog) { const rect = dialog.getBoundingClientRect(); if (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom) closeModal(); } });
   dialog.showModal();
+  document.documentElement.classList.add('modal-open');
   app.inert = true;
 }
 function setGame(game: GameState): void {
