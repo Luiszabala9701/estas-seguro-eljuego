@@ -1,5 +1,6 @@
 import './styles.css';
 import './ui/styles-extras.css';
+import { Capacitor } from '@capacitor/core';
 import { cases } from './cases';
 import { startCase, choose, answerInput, resolveConfrontation, currentScene, presentEvidence, pendingConfrontation, type Resolution } from './engine/engine';
 import { interpret, type Interpretation } from './engine/interpreter';
@@ -176,6 +177,6 @@ document.addEventListener('visibilitychange', () => { if (document.hidden) { per
 const issues = cases.flatMap(c => validateCase(c).map(error => `${c.title}: ${error}`));
 if (issues.length) { app.innerHTML = `<main class="fatal-error"><h1>No pudimos abrir el expediente</h1><p>${h(issues.join(' · '))}</p></main>`; }
 else { render(); if (warning) toast(warning); }
-if (import.meta.env.PROD && 'serviceWorker' in navigator) {
+if (import.meta.env.PROD && !Capacitor.isNativePlatform() && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => { void navigator.serviceWorker.register('./sw.js').catch(() => { /* A local static server remains sufficient. */ }); });
 }

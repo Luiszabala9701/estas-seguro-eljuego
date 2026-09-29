@@ -60,6 +60,18 @@ La compilación lista para publicar queda en **dist/**. `npm run preview` la sir
 
 La versión de producción agrega un service worker: después de la primera carga completa, puede volver a abrirse sin conexión en ese mismo navegador y origen. El modo de desarrollo requiere el servidor local encendido. El service worker no toma una versión nueva a mitad de una partida; la nueva versión se activa al cerrar las pestañas anteriores.
 
+## Aplicación Android
+
+El proyecto incluye una aplicación Android creada con Capacitor 8, identificador `com.gamenigmatic.estasseguro`, orientación vertical y compatibilidad desde Android 7 (API 24). Requiere Android Studio, SDK de Android y Java 21.
+
+```sh
+npm run android:sync
+npm run android:apk
+npm run android:open
+```
+
+`npm run android:apk` compila el sitio, sincroniza los recursos, genera una APK de prueba y la copia en `output/android/Estas-seguro-1.2.0-debug.apk`. La carpeta `output/` y los archivos de compilación Android no se versionan.
+
 ## Guardado y privacidad
 
 El guardado está en `localStorage`, clave `estas-seguro.save`, con respaldo en `estas-seguro.save.backup`. Se escribe después de cada decisión, confrontación, presentación de pruebas y cambio de opciones. Persiste escenas, conocimientos, declaraciones, evidencias, contradicciones, elecciones, variables, progreso y preferencias.

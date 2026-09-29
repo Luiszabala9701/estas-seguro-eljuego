@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">¿Estás seguro?</string>
+    <string name="title_activity_main">¿Estás seguro?</string>
+    <string name="package_name">com.gamenigmatic.estasseguro</string>
+    <string name="custom_url_scheme">com.gamenigmatic.estasseguro</string>
+</resources>
